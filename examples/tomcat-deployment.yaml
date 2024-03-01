@@ -1,0 +1,43 @@
+# tomcat-namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tomcat-namespace-xfusion
+---
+# tomcat-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deployment-xfusion
+  namespace: tomcat-namespace-xfusion
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tomcat-java-app
+  template:
+    metadata:
+      labels:
+        app: tomcat-java-app
+    spec:
+      containers:
+        - name: tomcat-container-xfusion
+          image: gcr.io/kodekloud/centos-ssh-enabled:tomcat
+          ports:
+            - containerPort: 8080
+---
+# tomcat-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat-service-xfusion
+  namespace: tomcat-namespace-xfusion
+spec:
+  selector:
+    app: tomcat-java-app
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+      nodePort: 32227
