@@ -1,0 +1,22 @@
+# shared-volumes.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-share-datacenter
+spec:
+  volumes:
+    - name: volume-share
+      emptyDir: {}
+  containers:
+    - name: volume-container-datacenter-1
+      image: fedora:latest
+      command: ["/bin/sh", "-c", "sleep infinity"]
+      volumeMounts:
+        - name: volume-share
+          mountPath: /tmp/blog
+    - name: volume-container-datacenter-2
+      image: fedora:latest
+      command: ["/bin/sh", "-c", "sleep infinity"]
+      volumeMounts:
+        - name: volume-share
+          mountPath: /tmp/demo
