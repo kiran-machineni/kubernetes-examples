@@ -15,9 +15,10 @@ spec:
       volumeMounts:
         - name: shared-logs
           mountPath: /var/log/nginx
-
+  initContainers:
     - name: sidecar-container
       image: ubuntu:latest
+      restartPolicy: Always
       command:
         - "sh"
         - "-c"
