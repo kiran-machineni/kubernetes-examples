@@ -4,5 +4,5 @@
 
 kubectl cp ./index.php php-deployment-7946b487f7-78ptp:/var/www/html
 
-kubectl cp ./port-forward service/php-service 8080:80
+kubectl port-forward service/php-service 8080:80
 curl localhost:8080
