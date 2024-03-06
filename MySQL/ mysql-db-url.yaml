@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-db-url
+type: Opaque
+data:
+  database: a29kZWtsb3VkX2RiMQ== # base-64 encoded value
