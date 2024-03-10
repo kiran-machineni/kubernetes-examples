@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  index.php: |
+    <?php
+    $dbname = getenv('MYSQL_DATABASE');
+    $dbuser = getenv('MYSQL_USER');
+    $dbpass = getenv('MYSQL_PASSWORD');
+    $dbhost = getenv('MYSQL_HOST');
+
+    if (empty($dbname) || empty($dbuser) || empty($dbpass) || empty($dbhost)) {
+      die("Missing MySQL environment variables. Make sure MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD, and MYSQL_HOST are set.");
+    }
+
+    $connect = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+
+    if (!$connect) {
+      die("Unable to connect to '$dbhost'. Error: " . mysqli_connect_error());
+    }
+
+    $test_query = "SHOW TABLES FROM $dbname";
+
+    $result = mysqli_query($connect, $test_query);
+    if (!$result) {
+      die("Error in query: " . mysqli_error($connect));
+    }
+
+    echo "Connected successfully";
+    mysqli_close($connect);

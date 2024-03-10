@@ -46,10 +46,16 @@ spec:
           volumeMounts:
             - name: php-config-volume
               mountPath: /opt/docker/etc/php/php.ini
+              subPath: php.ini
+            - name: app-config
+              mountPath: /app
         - name: mysql-container
-          image: mysql:5.6
+          image: mysql:8.0
           ports:
             - containerPort: 33060
+          volumeMounts:
+            - name: mysql-config-volume
+              mountPath: /etc/mysql/conf.d
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
@@ -80,3 +86,9 @@ spec:
         - name: php-config-volume
           configMap:
             name: php-config
+        - name: app-config
+          configMap:
+            name: app-config
+        - name: mysql-config-volume
+          configMap:
+            name: mysql-config

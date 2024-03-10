@@ -4,5 +4,5 @@ metadata:
   name: php-config
 data:
   php.ini: |
-    ; PHP settings
     variable_order = "EGPCS"
+    extension=mysqli
