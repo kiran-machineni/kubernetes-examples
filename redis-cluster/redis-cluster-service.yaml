@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: redis-cluster-service
 spec:
+  selector:
+    app: redis-cluster
   ports:
     - name: client
       port: 6379
