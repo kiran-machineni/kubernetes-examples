@@ -20,7 +20,7 @@ cd kubernetes-examples
 - Use kubectl apply command to apply the manifests to your Kubernetes cluster:
 
 ```bash
-kubectl apply -f redis-cluster/*.yaml
+kubectl apply -f ./redis-cluster
 ```
 
 **3. Create Redis cluster:**
